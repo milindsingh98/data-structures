@@ -97,6 +97,7 @@ class LinkedList:
         newNode = New Node that is to be added before a node
         '''
         currentNode = self.head
+        previous = None
         while True:
             if currentNode.data == present_node:
                 newNode.next = previous.next
