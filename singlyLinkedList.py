@@ -16,6 +16,12 @@ class LinkedList:
     '''
     def __init__(self):
         self.head = None
+
+    def isEmpty(self):
+        if self.head is None:
+            return True
+        else:
+            return False
         
         
     def insert_head(self , newNode):
@@ -106,7 +112,70 @@ class LinkedList:
             previous = currentNode
             currentNode = currentNode.next
         
-    
+    def delete_end(self):
+        if self.isEmpty() is False:
+            if self.head.next is None:
+                self.delete_head()
+                return
+            lastNode = self.head
+            while lastNode.next is not None:
+                previousNode = lastNode
+                lastNode = lastNode.next
+            previousNode.next = None
+            del lastNode
+        else:
+            print('The list is empty. Delete Failed!')
+
+
+    def delete_head(self):
+        '''
+        Deletes the head node of the linkedList
+        '''
+        if self.isEmpty() is False:
+            prevHead = self.head
+            self.head = self.head.next
+            prevHead.next = None
+            del prevHead
+        else:
+            print('The list is empty. Delete Failed!')
+            
+    def deleteAt(self , position):
+        '''
+        Deletes a node at the user defined position
+        '''
+        if self.isEmpty():
+            return
+        else:
+            currentNode = self.head
+            currentPos = 0
+            previousNode = None
+            while True:
+                if currentPos == position:
+                    previousNode.next = currentNode.next
+                    currentNode.next = None
+                    del currentNode
+                    break
+                previousNode = currentNode
+                currentNode = currentNode.next
+                currentPos +=1
+                
+                
+    def delete(self , presentNode):
+        '''
+        Delets a node by value rather than position. The Node should be passed in the function which is to be deleted
+        '''
+        if self.isEmpty():
+            return
+        else:
+            currentNode = self.head
+            previousNode = None
+            while True:
+                if currentNode.data == presentNode:
+                    previousNode.next = currentNode.next
+                    currentNode.next = None
+                    break
+                previousNode = currentNode
+                currentNode = currentNode.next
             
     def printlist(self):
         '''
