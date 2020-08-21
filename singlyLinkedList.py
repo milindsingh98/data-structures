@@ -18,10 +18,24 @@ class LinkedList:
         self.head = None
 
     def isEmpty(self):
+        '''
+        Checks whether the linked is empty or not
+        '''
         if self.head is None:
             return True
         else:
             return False
+
+    def listLength(self):
+        '''
+        To display the length of the linked List
+        '''
+        currentNode = self.head
+        length = 0
+        while currentNode is not None:
+            length += 1
+            currentNode =  currentNode.next
+        return length
         
         
     def insert_head(self , newNode):
@@ -113,6 +127,9 @@ class LinkedList:
             currentNode = currentNode.next
         
     def delete_end(self):
+        '''
+        Deletes the node at the end of the linked list
+        '''
         if self.isEmpty() is False:
             if self.head.next is None:
                 self.delete_head()
@@ -141,9 +158,16 @@ class LinkedList:
             
     def deleteAt(self , position):
         '''
-        Deletes a node at the user defined position
+        Deletes a node at the position passed by user in the function.
         '''
-        if self.isEmpty():
+        if position < 0 or position >= self.listLength():
+            print('Invalid position')
+            return
+        if self.isEmpty() is True:
+            print('The list is empty')
+            return
+        elif position == 0:
+            self.delete_head()
             return
         else:
             currentNode = self.head
@@ -196,17 +220,18 @@ class LinkedList:
 if __name__ == '__main__':
     firstNode = Node('John')
     linkedList = LinkedList()
-    linkedList.insert(firstNode)
+    linkedList.insert(firstNode) # insert the node at the end pf the list
     secondNode = Node('Kelly')
     linkedList.insert(secondNode)
     thirdNode = Node('Scully')
-    linkedList.insert_head(thirdNode)
+    linkedList.insert_head(thirdNode) #insert a new node at the head of the linked list
     forthNode = Node('Jake')
-    linkedList.insertAtPos(forthNode , 2)
+    linkedList.insertAtPos(forthNode , 2) #insert a node at position 2
     fifthNode = Node('Charles')
-    linkedList.insert_between('John' , 'Jake' , fifthNode)
+    linkedList.insert_between('John' , 'Jake' , fifthNode) # insert a new node between two nodes
     fifthNode = Node('Amy')
-    linkedList.insertAfter('Charles' , fifthNode)
+    linkedList.insertAfter('Charles' , fifthNode) #insert a new node after a certain node
     sixthNode = Node('Rosa')
-    linkedList.insertBefore('Jake' , sixthNode)
+    linkedList.insertBefore('Jake' , sixthNode) #insert a new node before a certain node
+    linkedList.delete_head() # delete the head node
     linkedList.printlist()
