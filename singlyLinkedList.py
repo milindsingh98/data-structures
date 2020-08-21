@@ -30,6 +30,9 @@ class LinkedList:
         
         
     def insert(self , newNode):
+        '''
+        Inserts a new node at the end of the linkedList
+        '''
         if self.head is None:
             self.head = newNode
         else:
@@ -41,6 +44,11 @@ class LinkedList:
             lastNode.next = newNode
             
     def insertAtPos(self , newNode, position):
+        '''
+        Inserts a new node at a given user position
+        newNode - Node to add at the position
+        position - the positions start with 0, so position should be put accordingly.
+        '''
         currentNode = self.head
         previousNode = None
         currentPos = 0
@@ -54,6 +62,12 @@ class LinkedList:
             currentPos +=1
             
     def insert_between(self , prev_node , next_node , newNode):
+        '''
+        Inserts a new node between two nodes
+        prev_node = Previous Node Data part
+        next_node = Next Node Data part
+        newNode = New Node that is to be added between the nodes
+        '''
         currentNode = self.head
         while True:
             if currentNode.data == prev_node and currentNode.next.data == next_node:
@@ -61,10 +75,42 @@ class LinkedList:
                 currentNode.next = newNode
                 break
             currentNode = currentNode.next
+
+    def insertAfter(self, prev_node, newNode):
+        '''
+        Inserts a new node after a node
+        prev_node = the node after which a new node is to be added
+        newNode = New Node that is to be added after a node
+        '''
+        currentNode = self.head
+        while True:
+            if currentNode.data == prev_node:
+                newNode.next = currentNode.next
+                currentNode.next = newNode
+                break
+            currentNode = currentNode.next
+            
+    def insertBefore(self, present_node , newNode):
+        '''
+        Inserts a new node before a node
+        present_node = the node before which a new node is to be added
+        newNode = New Node that is to be added before a node
+        '''
+        currentNode = self.head
+        while True:
+            if currentNode.data == present_node:
+                newNode.next = previous.next
+                previous.next = newNode
+                break
+            previous = currentNode
+            currentNode = currentNode.next
         
     
             
     def printlist(self):
+        '''
+        Printing the LinkedList
+        '''
         if self.head is None:
             print('List is Empty amigos!')
         currentNode = self.head
@@ -85,10 +131,12 @@ if __name__ == '__main__':
     linkedList.insert(secondNode)
     thirdNode = Node('Scully')
     linkedList.insert_head(thirdNode)
-    # linkedList.printlist()
-
     forthNode = Node('Jake')
     linkedList.insertAtPos(forthNode , 2)
     fifthNode = Node('Charles')
     linkedList.insert_between('John' , 'Jake' , fifthNode)
+    fifthNode = Node('Amy')
+    linkedList.insertAfter('Charles' , fifthNode)
+    sixthNode = Node('Rosa')
+    linkedList.insertBefore('Jake' , sixthNode)
     linkedList.printlist()
