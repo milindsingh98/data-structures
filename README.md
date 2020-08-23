@@ -7,3 +7,6 @@ The Data Structure discusses in this repository are
 ## Linked List
 ### - Single Linked List
 ### - Doubly Linked List
+### - Circular Linked List
+### - Stack
+### - Queue
