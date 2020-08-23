@@ -102,6 +102,64 @@ class DoublyLinkedList:
                 currentNode = currentNode.next
             currentNode.next = newNode
             newNode.prev = currentNode
+
+    def deleteNode(self , markedNode):
+        if self.isEmpty():
+            print('The list is empty')
+            return
+        currentNode = self.head
+        previousNode = None
+        while True:
+            if currentNode.data == markedNode:
+                tempNode = currentNode
+                previousNode.next = currentNode.next
+                currentNode.next.prev = previousNode
+                del tempNode
+                break
+            previousNode = currentNode
+            currentNode = currentNode.next
+            
+    def delete_head(self):
+        tempNode = self.head
+        self.head = tempNode.next
+        self.head.prev = None
+        del tempNode
+        
+            
+    def deleteAt(self , position):
+        if self.isEmpty() or self.listlength()<0:
+            print('The linkedList is empty')
+            return
+        if position == 1:
+            self.delete_head()
+            return
+        currentNode = self.head
+        currentPos = 1
+        while True:
+            if currentPos == position:
+                tempNode = currentNode
+                currentNode.prev.next = currentNode.next
+                currentNode.next.prev = currentNode.prev
+                del tempNode
+                break
+            currentPos +=1
+            currentNode = currentNode.next
+            
+    def deleteEnd(self):
+        if self.isEmpty() or self.listlength() <= 0:
+            print('THe linkedList is empty')
+            return
+        if self.listlength() == 1:
+            self.delete_head()
+            return
+        lastNode = self.head
+        while True:
+            if lastNode.next.next is None:
+                lastNode.next.prev = None
+                lastNode.next.next = None
+                lastNode.next = None
+                break
+            lastNode = lastNode.next
             
     def printlist(self):
         if self.head is None:
@@ -140,4 +198,8 @@ if __name__ == "__main__":
     doublylist.insert_before(FifthNode , 'Rosa')
     SixthNode = Node('Holt')
     doublylist.insert_after(SixthNode , 'Rosa')
+    doublylist.deleteNode('Holt')
+    doublylist.delete_head()
+    doublylist.deleteAt(2)
+    doublylist.deleteEnd()
     doublylist.printlist()
