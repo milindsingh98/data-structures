@@ -29,8 +29,8 @@ class DoublyLinkedList:
     def insert_head(self , newNode):
         tempNode = self.head
         self.head = newNode
-        newNode.next = tempNode
-        newNode.prev = None
+        self.head.next = tempNode
+        tempNode.prev = self.head
         del tempNode
         
     
@@ -38,14 +38,21 @@ class DoublyLinkedList:
         if self.isEmpty() or self.listlength() < 0 or self.listlength() <= position:
             print('The list either empty or the position is more than listlength')
             return
+        if position is 0:
+            self.insert_head(newNode)
+            return
+        if position is self.listlength():
+            self.insert(newNode)
+            return
         else:
             currentNode = self.head
             currentPos = 1
             while True:
                 if currentPos == position:
-                    newNode.next = currentNode.next
-                    currentNode.next = newNode
-                    newNode.prev = currentNode.next
+                    currentNode.prev.next = newNode
+                    newNode.prev = currentNode.prev
+                    newNode.next = currentNode
+                    currentNode.prev = newNode
                     break
                 currentPos +=1
                 currentNode = currentNode.next
@@ -57,18 +64,30 @@ class DoublyLinkedList:
             return
         else:
             currentNode = self.head
-            previousNode = None
             while True:
-                if currentNode.data is markedNode:
-                    newNode.next = previousNode.next
-                    previousNode.next = newNode
-                    currentNode.prev = newNode.next
+                if currentNode.data == markedNode:
+                    currentNode.prev.next = newNode
+                    newNode.prev = currentNode.prev
+                    newNode.next = currentNode
+                    currentNode.prev = newNode
                     break
-                previousNode = currentNode
                 currentNode = currentNode.next
     
     def insert_after(self, newNode, markedNode):
-        pass
+        if self.isEmpty():
+            print('The list is empty')
+            return
+        currentNode = self.head
+        while True:
+            if currentNode.data == markedNode:
+                nextNode = currentNode.next #marking the next Node to currentNode
+                currentNode.next = newNode 
+                newNode.prev = currentNode
+                newNode.next = nextNode
+                nextNode.prev = newNode
+                break
+            currentNode = currentNode.next
+            
     
         
     def insert(self , newNode):
@@ -82,7 +101,7 @@ class DoublyLinkedList:
                     break
                 currentNode = currentNode.next
             currentNode.next = newNode
-            newNode.prev = currentNode.next
+            newNode.prev = currentNode
             
     def printlist(self):
         if self.head is None:
@@ -90,21 +109,35 @@ class DoublyLinkedList:
             return
         else:
             currentNode = self.head
+            print('Printing from the beginning')
             while True:
                 if currentNode is None:
                     break
                 print(currentNode.data)
+                if currentNode.next is None:
+                    reverseNode = currentNode
                 currentNode = currentNode.next
+            print('Printing from the end')
+            while True:
+                if reverseNode is None:
+                    break
+                print(reverseNode.data)
+                reverseNode = reverseNode.prev
+                
             
-FirstNode = Node('Norm')
-SecondNode = Node('Scully')
-doublylist = DoublyLinkedList()
-doublylist.insert(FirstNode)
-doublylist.insert(SecondNode)
-ThirdNode = Node('Jake')
-doublylist.insert_head(ThirdNode)
-FourthNode = Node('Rosa')
-doublylist.insertAt(FourthNode , 2)
-FifthNode = Node('Amy')
-doublylist.insert_before(FifthNode , 'Rosa')
-doublylist.printlist()
+                
+if __name__ == "__main__":          
+    FirstNode = Node('Norm')
+    SecondNode = Node('Scully')
+    doublylist = DoublyLinkedList()
+    doublylist.insert(FirstNode)
+    doublylist.insert(SecondNode)
+    ThirdNode = Node('Jake')
+    doublylist.insert_head(ThirdNode)
+    FourthNode = Node('Rosa')
+    doublylist.insertAt(FourthNode , 2)
+    FifthNode = Node('Amy')
+    doublylist.insert_before(FifthNode , 'Rosa')
+    SixthNode = Node('Holt')
+    doublylist.insert_after(SixthNode , 'Rosa')
+    doublylist.printlist()
