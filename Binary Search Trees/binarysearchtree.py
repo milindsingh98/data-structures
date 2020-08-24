@@ -42,6 +42,106 @@ class BinarySearchTree:
         if node.rightChild:
             self.traverse_in_order(node.rightChild)
 
+    def remove(self , data):
+        if self.root:
+            self.remove_node(data , self.root)
+        
+    def remove_node(self , data , node ):
+        if node is None:
+            return
+
+        if data < node.data:
+            self.remove_node(data , node.leftChild)
+        elif data > node.data:
+            self.remove_node(data , node.rightChild)
+        else:
+            if node.leftChild is None and node.rightChild is None:
+                print('Deleting the leaf node....')
+
+                parent = node.parent
+
+                if parent is not None and parent.leftChild == node:
+                    parent.leftChild = None
+                if parent is not None and parent.rightChild == node:
+                    parent.rightChild = None
+
+                if parent is None:
+                    self.root = None
+
+                del node
+
+            elif node.leftChild is None and node.rightChild is not None:
+                print('Removing the right child node with single child...')
+
+                parent = node.parent 
+
+                if parent is not None:
+                    if node.leftChild == node:
+                        parent.leftChild = node.rightChild
+                    if parent.rightChild == node:
+                        parent.rightChild = node.rightChild
+                else:
+                    self.rote = node.rightChild
+
+                node.rightChild.parent = parent
+                del node
+
+            elif node.leftChild is not None and node.rightChild is None:
+                print('Removing the node with the single left child')
+
+                parent = node.parent
+                if parent is not None:
+                    if node.leftChild == node:
+                        parent.leftChild = node.leftChild
+                    if node.rightChild == node:
+                        parent.rightChild = node.leftChild
+
+                else:
+                    self.root = node.leftChild
+
+                node.leftChild.parent = parent
+                del node
+
+            else:
+                print('Removing the root node')
+
+                predecessor = self.get_predecessor(node.leftChild)
+
+                temp = predecessor.data
+                predecessor.data = node.data
+                node.data = temp
+
+                self.remove_node(data , predecessor)
+
+    def get_predecessor(self , node):
+        if node.rightChild:
+            self.get_predecessor(node.rightChild)
+        return node
+
+    def getMax(self):
+        if self.root:
+            return self.get_max(self.root)
+
+    def get_max(self , node):
+        if node.rightChild:
+            return self.get_max(node.rightChild)
+        return node.data
+
+    def getMin(self):
+        if self.root:
+            return self.get_min(self.root)
+        
+    def get_min(self , node):
+        if node.leftChild:
+            return self.get_min(node.leftChild)
+        return node.data
+
+
+
+
+        
+
+
 
 
 if __name__ == "__main__":
@@ -52,6 +152,10 @@ if __name__ == "__main__":
     bst.insert(-5)
     bst.insert(66)
     bst.insert(72)
+    bst.remove(43)
     bst.traverse()
+    print(bst.getMax())
+    print(bst.getMin())
+
 
                 
