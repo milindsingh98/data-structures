@@ -52,7 +52,6 @@ if __name__ == "__main__":
     bst.insert(-5)
     bst.insert(66)
     bst.insert(72)
-    
     bst.traverse()
 
                 
