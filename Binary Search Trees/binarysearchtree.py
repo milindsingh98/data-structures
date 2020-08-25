@@ -150,7 +150,7 @@ if __name__ == "__main__":
     bst.insert(66)
     bst.insert(72)
     bst.remove(43)
-    bst.traverse()
+    bst.traverse()   #inorder traversal
     print(bst.getMax())
     print(bst.getMin())
 
