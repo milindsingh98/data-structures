@@ -1,4 +1,4 @@
-# Binary Search trees - The implementation of the various insertion , deletion and removal of the nodes of the trees.
+# Binary Search trees - The implementation of the various insertion , deletion  of the nodes of the trees.
 # The time complexity of each operation is O(log n) in case of the trees being balanced and the worst case scenario can be considered
 # when the tree is unbalanced and the linear time complexity is achieved that is O(n). 
 
