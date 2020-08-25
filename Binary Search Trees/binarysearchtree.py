@@ -1,3 +1,7 @@
+# Binary Search trees - The implementation of the various insertion , deletion and removal of the nodes of the trees.
+# The time complexity of each operation is O(log n) in case of the trees being balanced and the worst case scenario can be considered
+# when the tree is unbalanced and the linear time complexity is achieved that is O(n). 
+
 class Node:
     def __init__(self, data , parent):
         self.data = data
@@ -135,13 +139,6 @@ class BinarySearchTree:
         if node.leftChild:
             return self.get_min(node.leftChild)
         return node.data
-
-
-
-
-        
-
-
 
 
 if __name__ == "__main__":
