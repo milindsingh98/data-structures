@@ -14,12 +14,18 @@ class BinarySearchTree:
         self.root = None
 
     def insert(self , data):
+        '''
+        inserting a node to the binary search tree
+        '''
         if self.root is None:
             self.root = Node(data , None)
         else:
             self.insert_node(data , self.root)
 
     def insert_node(self , data , node):
+        '''
+        runner function which accepts data and node
+        '''
         #check the left subtree
         if data < node.data:
             if node.leftChild:
